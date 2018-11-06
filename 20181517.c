@@ -1,14 +1,14 @@
 #include <stdio.h>
-#include <cstring>
+#include <string.h>
 
 struct _birth{
-    int year;
-    int month;
-    int day;
+    char year;
+    char month;
+    char day;
 } typedef birth;
 
 struct _statement{
-    char name[20];
+    char name[200];
     birth myBirth;
     char gender[7];
     char address[31];
@@ -25,7 +25,7 @@ int birthToInteger(struct _birth birth1);
 void printStatementArr(struct _statement *myStatement, int index);
 void sortingStatement(struct _statement *arrStatement, int sortType, int sizeArrStatement);
 
-void printStatement(_statement statement);
+void printStatement(struct _statement statement);
 
 int main() {
     int state;
@@ -65,18 +65,25 @@ int main() {
 struct _statement inputStatement(){
     statement myStatement;
     int tempBirth;
-    printf("name:");
-    scanf("%s", myStatement.name);
-    printf("birth:");
-    scanf("%d", &tempBirth);
-    myStatement.myBirth = integerToBirth(tempBirth);
-    printf("gender:");
-    scanf("%s",myStatement.gender);
-    printf("address:");
-    scanf("%s",myStatement.address);
-    printf("PhoneNumber:");
-    scanf("%s",myStatement.phoneNumber);
-    return myStatement;
+    while(1){
+        printf("name:");
+        scanf("%s", myStatement.name);
+        printf("birth:");
+        scanf("%d", &tempBirth);
+        if(tempBirth <= 99999999){
+            printf("잘못된 생일 값 입니다. 다시 입력해주세요.\n");
+            continue;
+        }
+        myStatement.myBirth = integerToBirth(tempBirth);
+        printf("gender:");
+        scanf("%s",myStatement.gender);
+        printf("address:");
+        scanf("%s",myStatement.address);
+        printf("PhoneNumber:");
+        scanf("%s",myStatement.phoneNumber);
+        return myStatement;
+    }
+
 }
 
 void printStatementArr(struct _statement *myStatement, int index){
@@ -101,7 +108,7 @@ void printStatementArr(struct _statement *myStatement, int index){
     }
 }
 
-void printStatement(_statement myStatement) {
+void printStatement(struct _statement myStatement) {
 
         printf("%12s", myStatement.name);
         printf("\t\t%d.%d.%d",myStatement.myBirth.year,myStatement.myBirth.month,myStatement.myBirth.day);
